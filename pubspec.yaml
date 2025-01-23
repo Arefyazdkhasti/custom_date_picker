@@ -1,7 +1,7 @@
 name: custom_date_picker
 description: "A flutter package for custom Jalali and Georgian date picker"
 version: 0.0.1
-homepage:
+homepage: https://github.com/Arefyazdkhasti/custom_date_picker
 
 environment:
   sdk: ^3.6.0
