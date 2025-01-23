@@ -27,8 +27,7 @@ Add this package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  custom_date_picker:
-    path: /path_to_your_custom_date_picker
+   dual_custom_date_picker: ^1.0.0
 ```
 
 Then run:
@@ -36,6 +35,16 @@ Then run:
 ```bash
 flutter pub get
 ```
+---
+
+## Screenshots
+
+### Single Date Picker
+![Single Date Picker](screenshots/single_date_picker.jpg)
+
+### Range Date Picker
+![Range Date Picker](screenshots/range_date_picker.jpg)
+
 
 ---
 
