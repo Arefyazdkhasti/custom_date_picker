@@ -413,6 +413,10 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
     ).then((value) {
       if (value != null) {
         setState(() {
+          widget.onDateSelected(null);
+          //deselect the day if change month or year
+          selectedStartDate = null;
+
           currentMonth = value;
           visibleDates = pickerType == PickerType.dateTime
               ? getVisibleDatesGeorgian(currentMonth)
