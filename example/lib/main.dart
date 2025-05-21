@@ -1,6 +1,6 @@
-import 'package:custom_date_picker/custom_date_picker.dart';
-import 'package:custom_date_picker/utils/enums/picker_mode.dart';
-import 'package:custom_date_picker/utils/texts_helper.dart';
+import 'package:dual_custom_date_picker/custom_date_picker.dart';
+import 'package:dual_custom_date_picker/utils/enums/picker_mode.dart';
+import 'package:dual_custom_date_picker/utils/texts_helper.dart';
 import 'package:flutter/material.dart';
 
 void main() {
