@@ -45,7 +45,9 @@ class _ChangeMonthYearModalState extends State<ChangeMonthYearModal>
     currentJalali = current.toJalali();
 
     tabController = TabController(vsync: this, length: 2);
-    selectedYear = current.year;
+    selectedYear = widget.pickerType == PickerType.jalali
+        ? currentJalali.year
+        : current.year;
 
     //fill years from 1300 till 1500
     start = widget.pickerType == PickerType.jalali
