@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.1.0
+- fix small bugs
+
+## 1.0.2
+- Add needed documents and public_member_api_docs
+
+## 1.0.1 
+- Updated README.md to include screenshots.
+
 ## 1.0.0
 
 ### Added
