@@ -10,10 +10,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  persian_number_utility: ^1.1.4
   shamsi_date: ^1.0.1
   iconsax: ^0.0.8
   intl: ^0.20.1
-  persian_number_utility: ^1.1.4
 
 dev_dependencies:
   flutter_test:
