@@ -12,8 +12,8 @@ dependencies:
     sdk: flutter
   shamsi_date: ^1.0.1
   iconsax: ^0.0.8
-  persian_number_utility: ^1.1.4
   intl: ^0.20.1
+  persian_number_utility: ^1.1.4
 
 dev_dependencies:
   flutter_test:
