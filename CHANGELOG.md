@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.2.0
+- remove [iconsax](https://pub.dev/packages/iconsax) and use [iconsax_flutter](https://pub.dev/packages/iconsax_flutter) instead
+
 ## 1.1.0
 - fix small bugs
 

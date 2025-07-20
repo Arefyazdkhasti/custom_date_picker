@@ -40,12 +40,12 @@ class _MyHomePageState extends State<MyHomePage> {
           onDateSelected: (date) {
             debugPrint("onDateSelected: ${date.toString()}");
           },
-          datePickerMode: PickerMode.single,
+          datePickerMode: PickerMode.range,
           datePickerType: PickerType.jalali,
           fixedMode: true,
-          needToShowSelectedDaysBox: false,
-          needToShowChangeCalenderMode: false,
-          needToShowTodayButton: false,
+          needToShowSelectedDaysBox: true,
+          needToShowChangeCalenderMode: true,
+          needToShowTodayButton: true,
           currentMonth: DateTime.now(),
         ),
       ),
