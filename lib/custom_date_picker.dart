@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:intl/intl.dart';
 import '/../utils/enums/picker_mode.dart';
 import '/../utils/texts_helper.dart';
@@ -456,7 +455,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                         currentMonth.toJalali().copy(day: 1));
               },
               icon: Icon(
-                Iconsax.repeat4,
+                Iconsax.repeat_copy,
                 size: 24,
                 color: widget.primaryColor,
               ),
@@ -481,7 +480,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                 });
               },
               icon: Icon(
-                Iconsax.calendar_2,
+                Iconsax.calendar_2_copy,
                 size: 24,
                 color: widget.primaryColor,
               ),
@@ -508,7 +507,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
         children: [
           const SizedBox(width: 20),
           const Icon(
-            Iconsax.note_1,
+            Iconsax.note_1_copy,
             size: 28,
           ),
           const SizedBox(width: 18),
@@ -537,7 +536,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
           child: Row(
             children: [
               const Icon(
-                Iconsax.note_1,
+                Iconsax.note_1_copy,
                 size: 28,
               ),
               const SizedBox(width: 10),
@@ -572,7 +571,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
           child: Row(
             children: [
               const Icon(
-                Iconsax.note_1,
+                Iconsax.note_1_copy,
                 size: 28,
               ),
               const SizedBox(width: 10),
@@ -600,7 +599,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                             child: Row(
                               children: [
                                 Icon(
-                                  Iconsax.add4,
+                                  Iconsax.add_copy,
                                   size: 20,
                                   color: widget.primaryColor,
                                 ),
@@ -684,7 +683,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                   ? goToPreviousMonth()
                   : goToNextMonth(),
               icon: Icon(
-                Iconsax.arrow_right_3,
+                Iconsax.arrow_right_3_copy,
                 size: 20,
                 color: theme.colorScheme.onSurface,
               ),
@@ -715,7 +714,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                   ? goToNextMonth()
                   : goToPreviousMonth(),
               icon: Icon(
-                Iconsax.arrow_left_2,
+                Iconsax.arrow_left_2_copy,
                 size: 20,
                 color: theme.colorScheme.onSurface,
               ),

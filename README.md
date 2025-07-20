@@ -27,7 +27,7 @@ Add this package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-   dual_custom_date_picker: ^1.0.0
+   dual_custom_date_picker: ^1.2.0
 ```
 
 Then run:
