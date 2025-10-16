@@ -49,5 +49,9 @@
 ### Changed
 - Enhanced day rendering to support dynamic content such as prices or labels.
 
+## 1.2.1
+- Remove flutter_iconsax package
+- Add Icon file locally
+
 ---
 
