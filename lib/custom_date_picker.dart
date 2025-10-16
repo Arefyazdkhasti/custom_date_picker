@@ -7,6 +7,7 @@ import 'package:persian_number_utility/persian_number_utility.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 
 import 'change_month_year_modal.dart';
+import 'controller/calender_controller.dart';
 import 'day_item_section.dart';
 import 'utils/date_helper.dart';
 import 'utils/global_configs.dart';
@@ -35,6 +36,11 @@ class CustomDatePicker extends StatefulWidget {
   ///  modes can be interchangeable during run time with 'fixedMode = true' or not with 'fixedMode = false'
   final PickerMode datePickerMode;
 
+  ///calender type
+  ///simple -> Cupertino style calender
+  ///complex -> Material style calender with month and year picker, price showing ability and so on
+  final CalenderType calenderType;
+
   //is mode are interchangeable during run time or not
   final bool fixedMode;
 
@@ -42,25 +48,25 @@ class CustomDatePicker extends StatefulWidget {
   ///For range mode you have to set rangeDates to (SelectedStartDate, SelectedEndDate)
   final (DateTime?, DateTime?)? rangeDates;
 
-  //single mode variables
+  ///single mode variables
   final Function(DateTime?) onDateSelected;
 
-  //range mode variables
+  ///range mode variables
   final Function(DateTime?, DateTime?)? onRangeDateSelected;
 
-  //if modes changes during run time 'onChangePickerMode' function will be called
+  ///if modes changes during run time 'onChangePickerMode' function will be called
   final Function(PickerMode)? onChangePickerMode;
 
   //clear end date
   final Function()? onClearEndDate;
 
-  //custom day item
+  ///custom day item
   final DayItemSection? currentDayItem;
   final DayItemSection? selectedDayItem;
   final DayItemSection? notSelectedDayItem;
   final DayItemSection? disabledDayItem;
 
-  //custom theme
+  ///custom theme
   final Color? selectedDayColor;
   final Color? selectedDayBorderColor;
 
@@ -78,7 +84,7 @@ class CustomDatePicker extends StatefulWidget {
 
   final Color? betweenRangeColor;
 
-  //conditional booleans
+  ///conditional booleans
   final bool needToShowSelectedDaysBox;
   final bool needToShowChangeCalenderMode;
   final bool needToShowTodayButton;
@@ -116,6 +122,7 @@ class CustomDatePicker extends StatefulWidget {
     this.needToShowSelectedDaysBox = true,
     this.needToShowChangeCalenderMode = true,
     this.needToShowTodayButton = true,
+    this.calenderType = CalenderType.simple,
   });
 
   @override
@@ -123,9 +130,11 @@ class CustomDatePicker extends StatefulWidget {
 }
 
 class _CustomDatePickerState extends State<CustomDatePicker> {
+  CalenderController calenderController = CalenderController();
   bool isInit = true;
   late PickerMode datePickerMode;
   late PickerType pickerType;
+  late CalenderType calenderType;
 
   late DateTime currentMonth;
 
@@ -155,6 +164,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
 
     datePickerMode = widget.datePickerMode;
     pickerType = widget.datePickerType;
+    calenderType = widget.calenderType;
 
     //set current month to now if not provided
     currentMonth = widget.currentMonth ?? DateTime.now().copyWith(day: 1);
@@ -166,108 +176,9 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
     //set selected start date and end date
     selectedStartDate = widget.rangeDates?.$1;
     selectedEndDate = widget.rangeDates?.$2;
-  }
 
-  static final List<String> jalaliWeekDays = [
-    'شنبه',
-    'یکشنبه',
-    'دوشنبه',
-    'سه شنبه',
-    'چهارشنبه',
-    'پنجشنبه',
-    'جمعه',
-  ];
-
-  static final List<String> georgianWeekDays = [
-    'Sat',
-    'Sun',
-    'Mon',
-    'Tue',
-    'Wed',
-    'Thu',
-    'Fri',
-  ];
-
-  bool isBefore(
-    DateTime first,
-    DateTime second, {
-    bool needDayComparison = true,
-  }) {
-    return first.year < second.year ||
-        (first.year == second.year && first.month < second.month) ||
-        (needDayComparison &&
-            (first.year == second.year &&
-                first.month == second.month &&
-                first.day < second.day));
-  }
-
-  bool isAfter(
-    DateTime first,
-    DateTime second, {
-    bool needDayComparison = true,
-  }) {
-    return first.year > second.year ||
-        (first.year == second.year && first.month > second.month) ||
-        (needDayComparison &&
-            (first.year == second.year &&
-                first.month == second.month &&
-                first.day > second.day));
-  }
-
-  bool isTheSame(DateTime first, DateTime second) {
-    return first.day == second.day &&
-        first.month == second.month &&
-        first.year == second.year;
-  }
-
-  bool isBetween(DateTime date, DateTime start, DateTime end) {
-    return date.isBefore(end) && date.isAfter(start);
-  }
-
-  int getDaysInMonth(int year, int month) {
-    if (pickerType == PickerType.jalali) {
-      if (month == 12) {
-        final bool isLeapYear = Jalali(year).isLeapYear();
-        if (isLeapYear) return 30;
-        return 29;
-      }
-      const List<int> daysInMonth = <int>[
-        31,
-        31,
-        31,
-        31,
-        31,
-        31,
-        30,
-        30,
-        30,
-        30,
-        30,
-        -1
-      ];
-      return daysInMonth[month - 1];
-    } else {
-      if (month == 2) {
-        final bool isLeapYear = DateHelper().isLeapYear(year);
-        if (isLeapYear) return 29;
-        return 28;
-      }
-      const List<int> daysInMonth = <int>[
-        31,
-        -1,
-        31,
-        30,
-        31,
-        30,
-        31,
-        31,
-        30,
-        31,
-        30,
-        31,
-      ];
-      return daysInMonth[month - 1];
-    }
+    // update the UI
+    setState(() {});
   }
 
   List<DateTime> getVisibleDatesGeorgian(DateTime month) {
@@ -282,7 +193,13 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
         firstDayOfMonth.add(Duration(days: daysBeforeFirst * -1));
     List<DateTime> visibleDates = [];
     for (int i = 0;
-        i < getDaysInMonth(month.year, month.month) + daysBeforeFirst;
+        i <
+            calenderController.getDaysInMonth(
+                  pickerType,
+                  month.year,
+                  month.month,
+                ) +
+                daysBeforeFirst;
         i++) {
       visibleDates.add(startDate.add(Duration(days: i)));
     }
@@ -297,7 +214,13 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
     Jalali startDate = firstDayOfMonth.addDays(daysBeforeFirst * -1);
     List<Jalali> visibleDates = [];
     for (int i = 0;
-        i < getDaysInMonth(month.year, month.month) + daysBeforeFirst;
+        i <
+            calenderController.getDaysInMonth(
+                  pickerType,
+                  month.year,
+                  month.month,
+                ) +
+                daysBeforeFirst;
         i++) {
       visibleDates.add(startDate.addDays(i));
     }
@@ -318,7 +241,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
 
       //disable next month if lastDate is provided
       if (widget.lastDate != null &&
-          isAfter(
+          calenderController.isAfter(
             tempMonth,
             widget.lastDate!,
             needDayComparison: false,
@@ -349,7 +272,11 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
 
       //disable previous month if initialDate is provided
       if (widget.initialDate != null &&
-          isBefore(tempMonth, widget.initialDate!, needDayComparison: false)) {
+          calenderController.isBefore(
+            tempMonth,
+            widget.initialDate!,
+            needDayComparison: false,
+          )) {
         return;
       }
 
@@ -370,15 +297,15 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
     if (selectedStartDate == null && selectedEndDate == null) {
       selectedStartDate = date;
     } else if (selectedStartDate != null && selectedEndDate == null) {
-      if (isBefore(date, selectedStartDate!)) {
+      if (calenderController.isBefore(date, selectedStartDate!)) {
         selectedStartDate = date;
       } else {
         selectedEndDate = date;
       }
     } else if (selectedStartDate != null && selectedEndDate != null) {
-      if (isTheSame(selectedStartDate!, date)) {
+      if (calenderController.isTheSame(selectedStartDate!, date)) {
         selectedEndDate = null;
-      } else if (isTheSame(selectedEndDate!, date)) {
+      } else if (calenderController.isTheSame(selectedEndDate!, date)) {
         selectedStartDate = date;
         selectedEndDate = null;
       } else {
@@ -730,8 +657,9 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
   }
 
   Widget _buildDaysName() {
-    var weekDays =
-        pickerType == PickerType.jalali ? jalaliWeekDays : georgianWeekDays;
+    var weekDays = pickerType == PickerType.jalali
+        ? calenderController.jalaliWeekDays
+        : calenderController.georgianWeekDays;
 
     return Directionality(
       textDirection: TextsHelper().getDirectionByLocale(),
@@ -824,7 +752,8 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
       return const SizedBox();
     }
     //disable previous days if initialDate is provided
-    if (widget.initialDate != null && isBefore(date, widget.initialDate!)) {
+    if (widget.initialDate != null &&
+        calenderController.isBefore(date, widget.initialDate!)) {
       if (widget.disabledDayItem != null) {
         return widget.disabledDayItem!;
       } else {
@@ -851,7 +780,8 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
       }
     }
     //disable next days if lastDate is provided
-    else if (widget.lastDate != null && isAfter(date, widget.lastDate!)) {
+    else if (widget.lastDate != null &&
+        calenderController.isAfter(date, widget.lastDate!)) {
       if (widget.disabledDayItem != null) {
         return widget.disabledDayItem!;
       } else {
@@ -878,7 +808,8 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
       }
     }
     //make current selected date as selected in Single mode
-    else if (selectedStartDate != null && isTheSame(selectedStartDate!, date)) {
+    else if (selectedStartDate != null &&
+        calenderController.isTheSame(selectedStartDate!, date)) {
       if (widget.currentDayItem != null) {
         return widget.currentDayItem!;
       } else {
@@ -912,7 +843,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
         );
       }
       //current date in the calender
-    } else if (isTheSame(DateTime.now(), date)) {
+    } else if (calenderController.isTheSame(DateTime.now(), date)) {
       if (widget.currentDayItem != null) {
         return widget.currentDayItem!;
       } else {
@@ -1010,7 +941,8 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
       return const SizedBox();
     }
     //disable previous days if initialDate is provided
-    if (widget.initialDate != null && isBefore(date, widget.initialDate!)) {
+    if (widget.initialDate != null &&
+        calenderController.isBefore(date, widget.initialDate!)) {
       return DayItemSection(
         date: date,
         isSelected: true,
@@ -1033,7 +965,8 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
       );
     }
     //disable next days if lastDate is provided
-    else if (widget.lastDate != null && isAfter(date, widget.initialDate!)) {
+    else if (widget.lastDate != null &&
+        calenderController.isAfter(date, widget.initialDate!)) {
       return DayItemSection(
         date: date,
         isSelected: true,
@@ -1056,7 +989,8 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
       );
     }
     //current selected start date in range mode
-    else if (selectedStartDate != null && isTheSame(selectedStartDate!, date)) {
+    else if (selectedStartDate != null &&
+        calenderController.isTheSame(selectedStartDate!, date)) {
       return DayItemSection(
         date: date,
         isSelected: true,
@@ -1079,7 +1013,8 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
         primaryContainerColor: primaryContainer,
       );
       //current selected end date in range mode
-    } else if (selectedEndDate != null && isTheSame(selectedEndDate!, date)) {
+    } else if (selectedEndDate != null &&
+        calenderController.isTheSame(selectedEndDate!, date)) {
       return DayItemSection(
         date: date,
         isSelected: true,
@@ -1103,7 +1038,8 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
       );
       //between selected date and end date in range mode
     } else if ((selectedStartDate != null && selectedEndDate != null) &&
-        isBetween(date, selectedStartDate!, selectedEndDate!)) {
+        calenderController.isBetween(
+            date, selectedStartDate!, selectedEndDate!)) {
       return DayItemSection(
         date: date,
         isSelected: false,
@@ -1127,7 +1063,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
         primaryContainerColor: primaryContainer,
       );
       //current day
-    } else if (isTheSame(DateTime.now(), date)) {
+    } else if (calenderController.isTheSame(DateTime.now(), date)) {
       return DayItemSection(
         date: date,
         isSelected: false,
@@ -1176,6 +1112,10 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
 
   @override
   Widget build(BuildContext context) {
+    return _buildComplexPicker();
+  }
+
+  Widget _buildComplexPicker() {
     var theme = Theme.of(context);
     var width = MediaQuery.of(context).size.width;
 

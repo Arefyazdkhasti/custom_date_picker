@@ -1,7 +1,8 @@
 
 # Custom Date Picker
 
-A fully customizable date picker for Flutter that supports both **Jalali** and **Gregorian** calendars. This widget allows users to select a single date or a range of dates, making it ideal for various date-selection needs.
+A fully customizable date picker for Flutter that supports both **Jalali** and **Gregorian** calendars.  
+Now includes a new **Simple Date Picker** mode with Cupertino-style scrolling wheels.
 
 ---
 
@@ -11,6 +12,10 @@ A fully customizable date picker for Flutter that supports both **Jalali** and *
 - **Single or Range Selection**:
   - Single Date: Choose one date.
   - Range: Select a start and end date.
+- **Multiple Picker Modes**:
+
+  - **Complex Mode**: Full-featured month grid picker (single or range).
+  - **Simple Mode**: Minimalist Cupertino-style scroll picker.
 - **Customizable Appearance**:
   - Modify colors, borders, day items, and more to match your theme.
 - **Dynamic Prices**: Display additional data, like prices, for specific days.
@@ -27,7 +32,7 @@ Add this package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-   dual_custom_date_picker: ^1.2.0
+   dual_custom_date_picker: ^1.3.0
 ```
 
 Then run:
@@ -37,20 +42,84 @@ flutter pub get
 ```
 ---
 
-## Screenshots
+# Usage
 
-### Single Date Picker
-![Single Date Picker](screenshots/single_date_picker.jpg)
+## 🆕 Simple Date Picker (Minimal Mode)
 
-### Range Date Picker
-![Range Date Picker](screenshots/range_date_picker.jpg)
+### Overview
 
+A lightweight, scroll-based date selector built with Cupertino pickers.
+Perfect for dialogs, forms, and birthdate selection.
+
+### Example
+
+```dart
+import 'package:dual_custom_date_picker/dual_custom_date_picker.dart';
+
+SimpleDatePicker(
+  currentMonth: DateTime.now(),
+  initialDate: DateTime(1900, 1, 1),
+  lastDate: DateTime.now(),
+  pickerType: PickerType.jalali, // or PickerType.dateTime
+  selectedItemBackgroundColor: Colors.grey, // optional highlight border color
+  selectedItemStyle: const TextStyle(
+    fontWeight: FontWeight.bold,
+    color: Colors.deepOrange,
+  ),
+  itemStyle: const TextStyle(color: Colors.black87),
+  selectDateButtonText: const Text('انتخاب تاریخ'),
+  selectDateButtonStyle: ButtonStyle(
+    backgroundColor: WidgetStatePropertyAll(Colors.deepOrange),
+  ),
+  clearDateButton: OutlinedButton(
+    onPressed: () {},
+    child: const Text('حذف'),
+  ),
+  onDateSelected: (selected) {
+    print('Selected date: $selected');
+  },
+)
+```
+
+### Features
+
+* Three synchronized wheels (Year, Month, Day).
+* Fully localized (Jalali and Gregorian).
+* `initialDate` and `lastDate` limit the scrollable range.
+* Style customization:
+
+  * `selectedItemStyle`, `itemStyle`, `selectedItemBackgroundColor`
+  * `selectDateButtonText`, `clearDateButton`
+  * `itemHeight` for picker height control.
+* Ideal for small-space date inputs.
+
+## Props & Configuration
+
+| Name                          | Type                  | Description                                       |
+| ----------------------------- | --------------------- | ------------------------------------------------- |
+| `datePickerMode`              | `PickerMode`          | Picker mode: `single` or `range`.                 |
+| `datePickerType`              | `PickerType`          | Calendar type: `jalali` or `dateTime`.            |
+| `onDateSelected`              | `Function(DateTime?)` | Callback for single date selection.               |
+| `initialDate`                 | `DateTime?`           | Minimum selectable date.                          |
+| `lastDate`                    | `DateTime?`           | Maximum selectable date.                          |
+| `currentMonth`                | `DateTime?`           | Initial month displayed.                          |
+| `selectedItemStyle`           | `TextStyle?`          | Style for the selected item in Simple Picker.     |
+| `itemStyle`                   | `TextStyle?`          | Default item text style.                          |
+| `selectedItemBackgroundColor` | `Color?`              | Highlight color or border color of selected item. |
+| `selectDateButtonText`        | `Widget?`             | Custom widget for the “Select” button text.       |
+| `selectDateButtonStyle`       | `ButtonStyle?`        | Button style for “Select” button.                 |
+| `clearDateButton`             | `Widget?`             | Optional button to clear the selection.           |
+| `itemHeight`                  | `double?`             | Height of each picker column.                     |
 
 ---
 
-## Usage
+## 📸 Screenshots
 
-### Basic Example
+### Simple Date Picker
+<img src="screenshots/simple_date_picker.png" alt="Simple Date Picker" width="200"/>
+---
+
+## 📅 Complex Date Picker (Grid Mode)
 
 ```dart
 import 'package:custom_date_picker/custom_date_picker.dart';
@@ -139,6 +208,16 @@ CustomDatePicker(
 | `defaultDayColor`        | `Color?`          | Default day background color.          |
 | `primaryColor`           | `Color?`          | Primary color for buttons and icons.   |
 | `textColor`              | `Color?`          | Default text color.                    |
+
+
+## 📸 Screenshots
+
+### Complex Date Picker
+
+| Single Date Picker | Range Date Picker |
+|--------------------|------------------|
+| <img src="screenshots/single_date_picker.jpg" width="304"/> | <img src="screenshots/range_date_picker.jpg" width="300"/> |
+
 
 ---
 

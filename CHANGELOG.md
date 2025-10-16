@@ -1,4 +1,20 @@
 # Changelog
+## 1.3.0
+### Added
+- **Simple Date Picker (Minimal Mode)**:
+  - A lightweight, scroll-based picker using three Cupertino-style wheels (Year / Month / Day).
+  - Supports both **Jalali** and **Gregorian** calendars.
+  - Respects `initialDate` and `lastDate` limits — users can only scroll within the valid date range.
+  - Customizable appearance:
+    - `selectedItemStyle`, `itemStyle`, and `selectedItemBackgroundColor`
+    - Adjustable `itemHeight`
+    - Custom select and clear buttons (`selectDateButtonText`, `clearDateButton`)
+  - Ideal for compact use cases like **birthdate selection** or simple input modals.
+- Improved UI consistency for Cupertino pickers with highlight borders for the selected row.
+
+### Changed
+- Internal code cleanup and structure improvements in picker rebuild logic.
+- Enhanced scrolling and state synchronization between Year, Month, and Day pickers.
 
 ## 1.2.0
 - remove [iconsax](https://pub.dev/packages/iconsax) and use [iconsax_flutter](https://pub.dev/packages/iconsax_flutter) instead
