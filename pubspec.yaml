@@ -29,6 +29,7 @@ flutter:
   # To add assets to your package, add an assets section, like this:
   assets:
     - screenshots/
+    - fonts/Iconsax.ttf
   #
   # For details regarding assets in packages, see
   # https://flutter.dev/to/asset-from-package
@@ -41,10 +42,6 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  fonts:
-    - family: Iconsax
-      fonts:
-        - asset: fonts/Iconsax.ttf
   #
   # For details regarding fonts in packages, see
   # https://flutter.dev/to/font-from-package
