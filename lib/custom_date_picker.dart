@@ -8,7 +8,6 @@ import 'controller/calender_controller.dart';
 import 'day_item_section.dart';
 import 'utils/date_helper.dart';
 import 'utils/global_configs.dart';
-import 'utils/iconsax.dart';
 import 'utils/enums/picker_mode.dart';
 import 'utils/texts_helper.dart';
 
@@ -89,6 +88,14 @@ class CustomDatePicker extends StatefulWidget {
   final bool needToShowChangeCalenderMode;
   final bool needToShowTodayButton;
 
+  ///custom icons
+  final IconData? changeCalendarModeIcon;
+  final IconData? todayButtonIcon;
+  final IconData? selectedDateIcon;
+  final IconData? addReturnDateIcon;
+  final IconData? previousMonthIcon;
+  final IconData? nextMonthIcon;
+
   const CustomDatePicker({
     super.key,
     this.currentMonth,
@@ -123,6 +130,12 @@ class CustomDatePicker extends StatefulWidget {
     this.needToShowChangeCalenderMode = true,
     this.needToShowTodayButton = true,
     this.calenderType = CalenderType.simple,
+    this.changeCalendarModeIcon,
+    this.todayButtonIcon,
+    this.selectedDateIcon,
+    this.addReturnDateIcon,
+    this.previousMonthIcon,
+    this.nextMonthIcon,
   });
 
   @override
@@ -382,7 +395,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                         currentMonth.toJalali().copy(day: 1));
               },
               icon: Icon(
-                Iconsax.repeat_linear,
+                widget.changeCalendarModeIcon ?? Icons.sync_alt,
                 size: 24,
                 color: widget.primaryColor,
               ),
@@ -407,7 +420,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                 });
               },
               icon: Icon(
-                Iconsax.calendar_2_linear,
+                widget.todayButtonIcon ?? Icons.calendar_month_outlined,
                 size: 24,
                 color: widget.primaryColor,
               ),
@@ -433,8 +446,8 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
       return Row(
         children: [
           const SizedBox(width: 20),
-          const Icon(
-            Iconsax.note_1_linear,
+          Icon(
+            widget.selectedDateIcon ?? Icons.event_note_outlined,
             size: 28,
           ),
           const SizedBox(width: 18),
@@ -462,8 +475,8 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
         Expanded(
           child: Row(
             children: [
-              const Icon(
-                Iconsax.note_1_linear,
+              Icon(
+                widget.selectedDateIcon ?? Icons.event_note_outlined,
                 size: 28,
               ),
               const SizedBox(width: 10),
@@ -497,8 +510,8 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
         Expanded(
           child: Row(
             children: [
-              const Icon(
-                Iconsax.note_1_linear,
+              Icon(
+                widget.selectedDateIcon ?? Icons.event_note_outlined,
                 size: 28,
               ),
               const SizedBox(width: 10),
@@ -526,7 +539,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                             child: Row(
                               children: [
                                 Icon(
-                                  Iconsax.add_linear,
+                                  widget.addReturnDateIcon ?? Icons.add,
                                   size: 20,
                                   color: widget.primaryColor,
                                 ),
@@ -610,7 +623,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                   ? goToPreviousMonth()
                   : goToNextMonth(),
               icon: Icon(
-                Iconsax.arrow_right_3_linear,
+                widget.previousMonthIcon ?? Icons.chevron_right,
                 size: 20,
                 color: theme.colorScheme.onSurface,
               ),
@@ -641,7 +654,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                   ? goToNextMonth()
                   : goToPreviousMonth(),
               icon: Icon(
-                Iconsax.arrow_left_2_linear,
+                widget.nextMonthIcon ?? Icons.chevron_left,
                 size: 20,
                 color: theme.colorScheme.onSurface,
               ),

@@ -37,8 +37,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
-
     return Scaffold(
       body: Directionality(
         textDirection: TextsHelper().getReverseDirectionByLocale(),
