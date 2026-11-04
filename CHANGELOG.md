@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.3.2
+
+### Fixed
+- Selected dates box no longer overflows on narrow widths: departure and return labels, date values, and the "add return" action shrink inside the row.
+- Default previous-month chevron now points in the navigation direction (`Icons.chevron_left`).
+- Extra space at the bottom of the calendar list so the last days stay reachable when scrolling.
+
 ## 1.3.1
 
 - Remove IconSax from fonts and make each icon interchangeable via constructor 
