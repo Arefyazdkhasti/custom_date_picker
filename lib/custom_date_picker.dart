@@ -482,23 +482,36 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
               const SizedBox(width: 10),
               Expanded(
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'تاریخ رفت',
-                      style: theme.textTheme.titleSmall,
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Flexible(child: Text(
+                          'تاریخ رفت',
+                          style: theme.textTheme.titleSmall,
+                        )),
+                      ],
                     ),
                     const SizedBox(height: 4),
-                    Text(
-                      selectedStartDate == null
-                          ? '-'
-                          : pickerType == PickerType.jalali
-                              ? selectedStartDate!
-                                  .toLocal()
-                                  .toPersianDateStr(showDayStr: false)
-                                  .removeYearFromPersianDate()
-                              : DateFormat.MMMMd().format(selectedStartDate!),
-                      style: theme.textTheme.labelLarge,
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            selectedStartDate == null
+                                ? '-'
+                                : pickerType == PickerType.jalali
+                                    ? selectedStartDate!
+                                        .toLocal()
+                                        .toPersianDateStr(showDayStr: false)
+                                        .removeYearFromPersianDate()
+                                    : DateFormat.MMMMd().format(selectedStartDate!),
+                            style: theme.textTheme.labelLarge,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -517,11 +530,17 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
               const SizedBox(width: 10),
               Expanded(
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Flexible(child: Text(
                       'تاریخ برگشت',
                       style: theme.textTheme.titleSmall,
+                    )),
+                      ],
                     ),
                     const SizedBox(height: 4),
                     datePickerMode == PickerMode.single
@@ -543,10 +562,14 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                                   size: 20,
                                   color: widget.primaryColor,
                                 ),
-                                Text(
-                                  'افزودن بازگشت',
-                                  style: theme.textTheme.labelLarge!.copyWith(
-                                    color: widget.primaryColor,
+                                Flexible(
+                                  child: Text(
+                                    'افزودن بازگشت',
+                                    style: theme.textTheme.labelMedium!.copyWith(
+                                      color: widget.primaryColor,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.clip
                                   ),
                                 ),
                               ],
@@ -554,7 +577,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                           )
                         : Row(
                             children: [
-                              Text(
+                              Flexible(child: Text(
                                 selectedEndDate == null
                                     ? '-'
                                     : pickerType == PickerType.jalali
@@ -565,7 +588,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                                         : DateFormat.MMMMd()
                                             .format(selectedEndDate!),
                                 style: theme.textTheme.labelLarge,
-                              ),
+                              )),
                               if (selectedEndDate != null && !widget.fixedMode)
                                 InkWell(
                                   borderRadius: globalBorderRadius * 10,
@@ -623,7 +646,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                   ? goToPreviousMonth()
                   : goToNextMonth(),
               icon: Icon(
-                widget.previousMonthIcon ?? Icons.chevron_right,
+                widget.previousMonthIcon ?? Icons.chevron_left,
                 size: 20,
                 color: theme.colorScheme.onSurface,
               ),
@@ -1170,7 +1193,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
             child: _buildDaysName(),
           ),
           _buildCalendar(),
-          const SizedBox(height: 32),
+          const SizedBox(height: 200),
         ],
       ),
     );
