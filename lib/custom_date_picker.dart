@@ -488,7 +488,8 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Flexible(child: Text(
+                        Flexible(
+                            child: Text(
                           'تاریخ رفت',
                           style: theme.textTheme.titleSmall,
                         )),
@@ -507,7 +508,8 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                                         .toLocal()
                                         .toPersianDateStr(showDayStr: false)
                                         .removeYearFromPersianDate()
-                                    : DateFormat.MMMMd().format(selectedStartDate!),
+                                    : DateFormat.MMMMd()
+                                        .format(selectedStartDate!),
                             style: theme.textTheme.labelLarge,
                           ),
                         ),
@@ -536,10 +538,11 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Flexible(child: Text(
-                      'تاریخ برگشت',
-                      style: theme.textTheme.titleSmall,
-                    )),
+                        Flexible(
+                            child: Text(
+                          'تاریخ برگشت',
+                          style: theme.textTheme.titleSmall,
+                        )),
                       ],
                     ),
                     const SizedBox(height: 4),
@@ -563,21 +566,21 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                                   color: widget.primaryColor,
                                 ),
                                 Flexible(
-                                  child: Text(
-                                    'افزودن بازگشت',
-                                    style: theme.textTheme.labelMedium!.copyWith(
-                                      color: widget.primaryColor,
-                                    ),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.clip
-                                  ),
+                                  child: Text('افزودن بازگشت',
+                                      style:
+                                          theme.textTheme.labelMedium?.copyWith(
+                                        color: widget.primaryColor,
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.clip),
                                 ),
                               ],
                             ),
                           )
                         : Row(
                             children: [
-                              Flexible(child: Text(
+                              Flexible(
+                                  child: Text(
                                 selectedEndDate == null
                                     ? '-'
                                     : pickerType == PickerType.jalali
