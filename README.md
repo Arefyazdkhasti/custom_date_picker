@@ -32,7 +32,7 @@ Add this package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-   dual_custom_date_picker: ^1.3.0
+   dual_custom_date_picker: ^1.3.1
 ```
 
 Then run:
@@ -208,6 +208,19 @@ CustomDatePicker(
 | `defaultDayColor`        | `Color?`          | Default day background color.          |
 | `primaryColor`           | `Color?`          | Primary color for buttons and icons.   |
 | `textColor`              | `Color?`          | Default text color.                    |
+
+### Icon Customization
+
+All icons in `CustomDatePicker` are now configurable.
+
+| Name                       | Type        | Default fallback icon                  |
+|----------------------------|-------------|----------------------------------------|
+| `changeCalendarModeIcon`   | `IconData?` | `Icons.sync_alt`                       |
+| `todayButtonIcon`          | `IconData?` | `Icons.calendar_month_outlined`        |
+| `selectedDateIcon`         | `IconData?` | `Icons.event_note_outlined`            |
+| `addReturnDateIcon`        | `IconData?` | `Icons.add`                            |
+| `previousMonthIcon`        | `IconData?` | `Icons.chevron_right`                  |
+| `nextMonthIcon`            | `IconData?` | `Icons.chevron_left`                   |
 
 
 ## 📸 Screenshots

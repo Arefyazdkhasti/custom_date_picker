@@ -1,4 +1,9 @@
 # Changelog
+
+## 1.3.1
+
+- Remove IconSax from fonts and make each icon interchangeable via constructor 
+
 ## 1.3.0
 ### Added
 - **Simple Date Picker (Minimal Mode)**:
