@@ -1,6 +1,6 @@
 name: dual_custom_date_picker
 description: "A flutter package for custom Jalali and Georgian date picker"
-version: 1.3.2
+version: 1.3.3
 homepage: https://github.com/Arefyazdkhasti/custom_date_picker
 
 environment:
@@ -23,7 +23,6 @@ flutter:
 
   assets:
     - screenshots/
-    - fonts/Iconsax.ttf
   #
   # For details regarding assets in packages, see
   # https://flutter.dev/to/asset-from-package

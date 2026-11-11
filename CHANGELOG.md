@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.3
+
+- Remove Unused Assets 
+
 ## 1.3.2
 
 ### Fixed

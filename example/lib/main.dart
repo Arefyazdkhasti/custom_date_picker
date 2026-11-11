@@ -2,14 +2,10 @@ import 'package:dual_custom_date_picker/custom_date_picker.dart';
 import 'package:dual_custom_date_picker/simple_date_picker.dart';
 import 'package:dual_custom_date_picker/utils/enums/picker_mode.dart';
 import 'package:dual_custom_date_picker/utils/texts_helper.dart';
-import 'package:dual_custom_date_picker/controller/font_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-void main() async{
-
-  await FontController.loadAllFonts();
-
+void main() async {
   runApp(const MyApp());
 }
 
