@@ -32,8 +32,10 @@ Add this package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-   dual_custom_date_picker: ^1.3.1
+   dual_custom_date_picker: ^2.0.0
 ```
+
+Requires Flutter `>=3.47.0` / Dart `^3.13.0`. The package uses standalone `material_ui` and `cupertino_ui` (same as apps migrated off `package:flutter/material.dart`).
 
 Then run:
 
