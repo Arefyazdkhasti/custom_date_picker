@@ -11,7 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  material_ui: ^1.8.0
+  material_ui: ^1.11.0
   cupertino_ui: ^1.0.0
   persian_number_utility: ^1.1.6
   shamsi_date: ^1.1.1
