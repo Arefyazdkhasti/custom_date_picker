@@ -1,7 +1,7 @@
-import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:shamsi_date/shamsi_date.dart';
 
+import 'custom_wheel_picker.dart';
 import 'utils/button_style.dart';
 import 'utils/enums/picker_mode.dart';
 import 'utils/global_configs.dart';
@@ -91,7 +91,7 @@ class _ChangeMonthYearModalState extends State<ChangeMonthYearModal>
     'September',
     'October',
     'November',
-    'December'
+    'December',
   ];
 
   @override
@@ -99,193 +99,171 @@ class _ChangeMonthYearModalState extends State<ChangeMonthYearModal>
     var theme = Theme.of(context);
 
     return Material(
-      child: CupertinoPageScaffold(
-        navigationBar: CupertinoNavigationBar(
-          automaticallyImplyLeading: false,
-          border: null,
-          backgroundColor: theme.colorScheme.surface,
-        ),
-        child: Directionality(
-          textDirection: TextDirection.rtl,
-          child: PopScope(
-            canPop: false,
-            onPopInvokedWithResult: (didPop, result) {
-              if (didPop) return;
-
-              Navigator.pop(
-                context,
-                current,
-              );
-            },
-            child: SafeArea(
-                bottom: true,
-                child: ListView(
-                  shrinkWrap: true,
-                  children: [
-                    Container(
-                      margin: globalMargin * 5,
-                      height: 50,
-                      child: TabBar(
-                        controller: tabController,
-                        indicatorSize: TabBarIndicatorSize.tab,
-                        padding: EdgeInsets.zero,
-                        labelPadding: EdgeInsets.zero,
-                        indicatorPadding: EdgeInsets.zero,
-                        tabs: [
-                          Center(
-                            child: FittedBox(
-                              child: Text(
-                                'انتخاب ماه',
-                                style: theme.textTheme.titleSmall,
-                              ),
-                            ),
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: PopScope(
+          canPop: false,
+          onPopInvokedWithResult: (didPop, result) {
+            if (didPop) return;
+            Navigator.pop(context, current);
+          },
+          child: SafeArea(
+            bottom: true,
+            child: ListView(
+              shrinkWrap: true,
+              children: [
+                const SizedBox(height: 12),
+                Container(
+                  margin: globalMargin * 5,
+                  height: 50,
+                  child: TabBar(
+                    controller: tabController,
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    padding: EdgeInsets.zero,
+                    labelPadding: EdgeInsets.zero,
+                    indicatorPadding: EdgeInsets.zero,
+                    tabs: [
+                      Center(
+                        child: FittedBox(
+                          child: Text(
+                            'انتخاب ماه',
+                            style: theme.textTheme.titleSmall,
                           ),
-                          Center(
-                            child: FittedBox(
-                              child: Text(
-                                'انتخاب سال',
-                                style: theme.textTheme.titleSmall,
-                              ),
-                            ),
-                          )
-                        ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 16),
-                    SizedBox(
-                      height: 270,
-                      child: TabBarView(
-                        controller: tabController,
-                        children: [
-                          Padding(
-                            padding: globalMargin * 5,
-                            child: GridView.builder(
-                              shrinkWrap: true,
-                              padding: EdgeInsets.zero,
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                      Center(
+                        child: FittedBox(
+                          child: Text(
+                            'انتخاب سال',
+                            style: theme.textTheme.titleSmall,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 16),
+                SizedBox(
+                  height: 270,
+                  child: TabBarView(
+                    controller: tabController,
+                    children: [
+                      Padding(
+                        padding: globalMargin * 5,
+                        child: GridView.builder(
+                          shrinkWrap: true,
+                          padding: EdgeInsets.zero,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
                                 childAspectRatio: 2,
                                 crossAxisCount: 3,
                                 crossAxisSpacing: 8,
                                 mainAxisSpacing: 8,
                               ),
-                              itemCount: widget.pickerType == PickerType.jalali
-                                  ? persianMonths.length
-                                  : georgianMonths.length,
-                              itemBuilder: (context, index) {
-                                bool isSelected;
+                          itemCount: widget.pickerType == PickerType.jalali
+                              ? persianMonths.length
+                              : georgianMonths.length,
+                          itemBuilder: (context, index) {
+                            bool isSelected;
 
-                                if (widget.pickerType == PickerType.jalali) {
-                                  isSelected = currentJalali.month - 1 == index;
-                                } else {
-                                  isSelected = current.month - 1 == index;
-                                }
+                            if (widget.pickerType == PickerType.jalali) {
+                              isSelected = currentJalali.month - 1 == index;
+                            } else {
+                              isSelected = current.month - 1 == index;
+                            }
 
-                                return InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      if (widget.pickerType ==
-                                          PickerType.jalali) {
-                                        currentJalali = currentJalali.copy(
-                                            month: index + 1);
-                                      } else {
-                                        current =
-                                            current.copyWith(month: index + 1);
-                                      }
-                                    });
-                                    tabController.animateTo(1);
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                          color: isSelected
-                                              ? theme.colorScheme.primary
-                                              : theme.colorScheme.outline
-                                                  .withValues(alpha: 0.4),
-                                        ),
-                                        color: isSelected
-                                            ? theme.colorScheme.primaryContainer
-                                                .withValues(alpha: 0.4)
-                                            : null,
-                                        borderRadius: globalBorderRadius * 1.5),
-                                    child: Center(
-                                      child: Text(
-                                        widget.pickerType == PickerType.jalali
-                                            ? persianMonths[index]
-                                            : georgianMonths[index],
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  ),
-                                );
+                            return InkWell(
+                              onTap: () {
+                                setState(() {
+                                  if (widget.pickerType == PickerType.jalali) {
+                                    currentJalali = currentJalali.copy(
+                                      month: index + 1,
+                                    );
+                                  } else {
+                                    current = current.copyWith(
+                                      month: index + 1,
+                                    );
+                                  }
+                                });
+                                tabController.animateTo(1);
                               },
-                            ),
-                          ),
-                          Padding(
-                            padding: globalMargin * 5,
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: 180,
-                                  child: CupertinoPicker(
-                                    scrollController:
-                                        FixedExtentScrollController(
-                                      initialItem:
-                                          widget.pickerType == PickerType.jalali
-                                              ? currentJalali.year - start
-                                              : current.year - start,
-                                    ),
-                                    itemExtent: 50,
-                                    children: years
-                                        .map(
-                                          (e) => Center(
-                                            child: Text(
-                                              widget.pickerType ==
-                                                      PickerType.jalali
-                                                  ? TextsHelper()
-                                                      .convertDigitsByLocale(
-                                                      e.toString(),
-                                                    )
-                                                  : e.toString(),
-                                              style:
-                                                  theme.textTheme.titleMedium,
-                                            ),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: isSelected
+                                        ? theme.colorScheme.primary
+                                        : theme.colorScheme.outline.withValues(
+                                            alpha: 0.4,
                                           ),
-                                        )
-                                        .toList(),
-                                    onSelectedItemChanged: (value) {
-                                      selectedYear = value + start;
-                                    },
+                                  ),
+                                  color: isSelected
+                                      ? theme.colorScheme.primaryContainer
+                                            .withValues(alpha: 0.4)
+                                      : null,
+                                  borderRadius: globalBorderRadius * 1.5,
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    widget.pickerType == PickerType.jalali
+                                        ? persianMonths[index]
+                                        : georgianMonths[index],
+                                    textAlign: TextAlign.center,
                                   ),
                                 ),
-                                SizedBox(
-                                  height: 56,
-                                  width: MediaQuery.of(context).size.width,
-                                  child: FilledButton(
-                                    style: buttonStyle,
-                                    onPressed: () {
-                                      Navigator.pop(
-                                        context,
-                                        widget.pickerType == PickerType.jalali
-                                            ? currentJalali
-                                                .copy(year: selectedYear)
-                                                .toDateTime()
-                                            : current.copyWith(
-                                                year: selectedYear,
-                                              ),
-                                      );
-                                    },
-                                    child: Text('انتخاب کن'),
-                                  ),
-                                )
-                              ],
-                            ),
-                          )
-                        ],
+                              ),
+                            );
+                          },
+                        ),
                       ),
-                    )
-                  ],
-                )),
+                      Padding(
+                        padding: globalMargin * 5,
+                        child: Column(
+                          children: [
+                            CustomWheelPicker(
+                              values: years,
+                              initialValue:
+                                  widget.pickerType == PickerType.jalali
+                                  ? currentJalali.year
+                                  : current.year,
+                              onValueChanged: (year) {
+                                selectedYear = year;
+                              },
+                              borderRadius: globalBorderRadius * 1.5,
+                              formatValue: (year) {
+                                return widget.pickerType == PickerType.jalali
+                                    ? TextsHelper().convertDigitsByLocale(
+                                        year.toString(),
+                                      )
+                                    : year.toString();
+                              },
+                              textStyle: theme.textTheme.titleMedium,
+                            ),
+                            SizedBox(
+                              height: 56,
+                              width: MediaQuery.of(context).size.width,
+                              child: FilledButton(
+                                style: buttonStyle,
+                                onPressed: () {
+                                  Navigator.pop(
+                                    context,
+                                    widget.pickerType == PickerType.jalali
+                                        ? currentJalali
+                                              .copy(year: selectedYear)
+                                              .toDateTime()
+                                        : current.copyWith(year: selectedYear),
+                                  );
+                                },
+                                child: Text('انتخاب کن'),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

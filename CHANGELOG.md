@@ -3,9 +3,8 @@
 ## 2.0.0
 
 ### Changed
-- **Breaking:** migrate Material/Cupertino widgets to standalone `material_ui` and `cupertino_ui` (same approach as pateh-mobile-app).
+- **Breaking:** migrate Material/Cupertino widgets to standalone `material_ui` and `cupertino_ui`.
 - Raise minimum SDK to Dart `^3.13.0` and Flutter `>=3.47.0`.
-- Public `ButtonStyle` / Material widget types are now from `material_ui`, so hosts already on `material_ui` can pass styles such as `selectDateButtonStyle` without a type mismatch.
 
 ## 1.3.2
 

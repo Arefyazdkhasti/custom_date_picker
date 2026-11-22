@@ -2,7 +2,6 @@ import 'package:dual_custom_date_picker/custom_date_picker.dart';
 import 'package:dual_custom_date_picker/simple_date_picker.dart';
 import 'package:dual_custom_date_picker/utils/enums/picker_mode.dart';
 import 'package:dual_custom_date_picker/utils/texts_helper.dart';
-import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:material_ui/material_ui.dart';
 
 void main() async {
@@ -48,12 +47,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text("Simple Mode:"),
-                  CupertinoSwitch(
+                  Switch(
                     value: currentCalenderType == CalenderType.simple,
                     onChanged: (value) {
                       setState(() {
-                        currentCalenderType =
-                            value ? CalenderType.simple : CalenderType.complex;
+                        currentCalenderType = value
+                            ? CalenderType.simple
+                            : CalenderType.complex;
                       });
                     },
                   ),
@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
               const SizedBox(height: 20),
               if (currentCalenderType == CalenderType.simple) ...[
                 SimpleDatePicker(
-                  pickerType: PickerType.jalali,
+                  pickerType: PickerType.dateTime,
                   onDateSelected: (date) {
                     debugPrint("onDateSelected: ${date.toString()}");
                   },
